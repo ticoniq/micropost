@@ -9,6 +9,7 @@ class UI {
     this.titleInput = document.querySelector('#title');
   }
 
+  // show post 
   showPosts(posts) {
     // console.log(posts);
     let output = '';
@@ -33,6 +34,7 @@ class UI {
     this.post.innerHTML = output;
   }
 
+  // show alert 
   showAlert(message, className) {
     this.clearAlert();
 
@@ -54,6 +56,7 @@ class UI {
     }, 3000);
   }
 
+  // clear alert field 
   clearAlert() {
     const currentAlert = document.querySelector('.alert');
 
@@ -62,9 +65,58 @@ class UI {
     }
   }
 
+  // clear data field 
   clearField() {
     this.titleInput.value = '';
     this.bodyInput.value = '';
+  }
+
+  // Fill form to edit 
+  fillForm(data) {
+    this.titleInput.value = data.title;
+    this.bodyInput.value = data.body;
+    this.id.value = data.id;
+
+    this.changeFormState('edit');
+  }
+
+  // Clear id hidden value 
+  clearIdInput() {
+    this.id.value = '';
+  }
+
+  // Change form state 
+  changeFormState(type) {
+    if (type === 'edit') {
+      this.postSubmit.textContent = 'Update Post';
+      this.postSubmit.className = 'post-submit btn btn-warning btn-block'
+
+      // create cancel button 
+      const button = document.createElement('button');
+      // Add class name 
+      button.className = 'post-cancel btn btn-light btn-block';
+      button.appendChild(document.createTextNode('Cancel Edit'));
+
+      // get parent 
+      const cardForm = document.querySelector('.card-form');
+      // Get element to insert before 
+      const formEnd = document.querySelector('.form-end');
+      // Insert the cancel button 
+      cardForm.insertBefore(button, formEnd);
+    } else {
+      this.postSubmit.textContent = 'Post It';
+      this.postSubmit.className = 'post-submit btn btn-primary btn-block';
+
+      // remove cancel button 
+      if (document.querySelector('.post-cancel')) {
+        document.querySelector('.post-cancel').remove();
+      }
+
+      // clear id from hidden field 
+      this.clearIdInput();
+      // clear text field 
+      this.clearField();
+    }
   }
 }
 
