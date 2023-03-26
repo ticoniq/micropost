@@ -52,7 +52,6 @@ function submitPost() {
         .catch(err => console.log(err));
     } else {
       // Update post 
-      // create Post 
       http.put(`http://localhost:3000/posts/${id}`, data)
         .then(data => {
           ui.showAlert('Post updated', 'alert alert-success');
